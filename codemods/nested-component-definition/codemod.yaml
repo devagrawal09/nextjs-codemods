@@ -1,0 +1,23 @@
+schema_version: "1.0"
+
+name: "nested-component-definition"
+version: "0.1.0"
+description: "Components defined inside another component and rendered as JSX, which remount on every render"
+author: "Dev Agrawal"
+license: "MIT"
+
+targets:
+  languages: ["tsx"]
+
+keywords: ["react", "nextjs", "audit", "detection"]
+
+registry:
+  access: "private"
+  visibility: "private"
+
+capabilities: []
+
+workflows:
+  - name: main
+    default: true
+    path: workflow.yaml

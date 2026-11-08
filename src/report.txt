@@ -1,0 +1,6 @@
+  const report = (node: SgNode<TSX>, dims: Record<string, string>) => {
+    findings.increment(dims);
+    if (options.params?.locations) {
+      console.log(`FINDING\t__NAME__\t${root.filename()}:${node.range().start.line + 1}\t${JSON.stringify(dims)}`);
+    }
+  };

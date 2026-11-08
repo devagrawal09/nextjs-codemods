@@ -1,0 +1,23 @@
+schema_version: "1.0"
+
+name: "unstable-context-value"
+version: "0.1.0"
+description: "Context providers given a new object, array or function on every render"
+author: "Dev Agrawal"
+license: "MIT"
+
+targets:
+  languages: ["tsx"]
+
+keywords: ["react", "nextjs", "audit", "detection"]
+
+registry:
+  access: "private"
+  visibility: "private"
+
+capabilities: []
+
+workflows:
+  - name: main
+    default: true
+    path: workflow.yaml

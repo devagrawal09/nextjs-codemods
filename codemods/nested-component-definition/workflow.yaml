@@ -1,0 +1,24 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/codemod/codemod/refs/heads/main/schemas/workflow.json
+
+version: "1"
+
+nodes:
+  - id: detect
+    name: Detect nested-component-definition
+    type: automatic
+    steps:
+      - name: "Count nested-component-definition findings"
+        js-ast-grep:
+          js_file: scripts/codemod.ts
+          base_path: "."
+          language: "tsx"
+          include:
+            - "**/*.tsx"
+            - "**/*.jsx"
+            - "**/*.ts"
+            - "**/*.js"
+          exclude:
+            - "**/node_modules/**"
+            - "**/dist/**"
+            - "**/build/**"
+            - "**/.next/**"

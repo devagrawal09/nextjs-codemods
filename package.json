@@ -1,0 +1,13 @@
+{
+  "name": "nextjs-codemods",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "check-types": "tsc --noEmit -p .",
+    "test": "bash scripts/test-all.sh"
+  },
+  "devDependencies": {
+    "@codemod.com/jssg-types": "1.6.3",
+    "typescript": "7.0.2"
+  }
+}

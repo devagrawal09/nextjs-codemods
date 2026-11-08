@@ -1,0 +1,10 @@
+{
+  "click-on-non-interactive": [
+    {
+      "cardinality": {
+        "element": "div"
+      },
+      "count": 1
+    }
+  ]
+}

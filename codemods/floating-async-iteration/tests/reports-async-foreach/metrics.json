@@ -1,0 +1,10 @@
+{
+  "floating-async-iteration": [
+    {
+      "cardinality": {
+        "method": "forEach"
+      },
+      "count": 1
+    }
+  ]
+}

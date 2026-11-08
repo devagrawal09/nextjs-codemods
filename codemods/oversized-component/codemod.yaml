@@ -1,0 +1,23 @@
+schema_version: "1.0"
+
+name: "oversized-component"
+version: "0.1.0"
+description: "React components longer than 300 lines"
+author: "Dev Agrawal"
+license: "MIT"
+
+targets:
+  languages: ["tsx"]
+
+keywords: ["react", "nextjs", "audit", "detection"]
+
+registry:
+  access: "private"
+  visibility: "private"
+
+capabilities: []
+
+workflows:
+  - name: main
+    default: true
+    path: workflow.yaml

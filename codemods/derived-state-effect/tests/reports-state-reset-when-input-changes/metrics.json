@@ -1,0 +1,10 @@
+{
+  "derived-state-effect": [
+    {
+      "cardinality": {
+        "kind": "reset-on-change"
+      },
+      "count": 1
+    }
+  ]
+}

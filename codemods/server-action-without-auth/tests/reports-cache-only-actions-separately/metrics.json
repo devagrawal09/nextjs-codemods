@@ -1,0 +1,11 @@
+{
+  "server-action-without-auth": [
+    {
+      "cardinality": {
+        "effect": "cache-revalidation",
+        "kind": "async-function"
+      },
+      "count": 1
+    }
+  ]
+}

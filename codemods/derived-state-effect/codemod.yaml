@@ -1,0 +1,23 @@
+schema_version: "1.0"
+
+name: "derived-state-effect"
+version: "0.1.0"
+description: "Effects whose only job is to copy props or derived values into state"
+author: "Dev Agrawal"
+license: "MIT"
+
+targets:
+  languages: ["tsx"]
+
+keywords: ["react", "nextjs", "audit", "detection"]
+
+registry:
+  access: "private"
+  visibility: "private"
+
+capabilities: []
+
+workflows:
+  - name: main
+    default: true
+    path: workflow.yaml

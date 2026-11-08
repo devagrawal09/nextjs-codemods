@@ -1,0 +1,11 @@
+{
+  "oversized-component": [
+    {
+      "cardinality": {
+        "size": "300-499",
+        "stateHooks": "0"
+      },
+      "count": 1
+    }
+  ]
+}

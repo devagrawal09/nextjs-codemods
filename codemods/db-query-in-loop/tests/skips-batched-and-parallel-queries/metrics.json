@@ -1,0 +1,10 @@
+{
+  "db-query-in-loop": [
+    {
+      "cardinality": {
+        "orm": "drizzle-or-sql"
+      },
+      "count": 1
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "server-action-without-auth": [
+    {
+      "cardinality": {
+        "effect": "reads-or-writes",
+        "kind": "action-client"
+      },
+      "count": 1
+    }
+  ]
+}

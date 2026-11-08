@@ -1,0 +1,10 @@
+{
+  "effect-missing-cleanup": [
+    {
+      "cardinality": {
+        "resource": "interval"
+      },
+      "count": 1
+    }
+  ]
+}

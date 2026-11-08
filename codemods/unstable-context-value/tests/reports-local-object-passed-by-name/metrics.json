@@ -1,0 +1,12 @@
+{
+  "unstable-context-value": [
+    {
+      "cardinality": {
+        "shape": "object",
+        "via": "local-variable",
+        "wraps": "children-prop"
+      },
+      "count": 1
+    }
+  ]
+}

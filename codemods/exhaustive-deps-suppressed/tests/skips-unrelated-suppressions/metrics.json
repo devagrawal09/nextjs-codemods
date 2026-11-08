@@ -1,0 +1,11 @@
+{
+  "exhaustive-deps-suppressed": [
+    {
+      "cardinality": {
+        "justified": "yes",
+        "tool": "biome"
+      },
+      "count": 1
+    }
+  ]
+}

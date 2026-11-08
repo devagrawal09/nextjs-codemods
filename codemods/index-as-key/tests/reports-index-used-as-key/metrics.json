@@ -1,0 +1,10 @@
+{
+  "index-as-key": [
+    {
+      "cardinality": {
+        "form": "bare-index"
+      },
+      "count": 1
+    }
+  ]
+}

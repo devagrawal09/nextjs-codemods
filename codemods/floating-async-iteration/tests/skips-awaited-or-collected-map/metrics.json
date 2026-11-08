@@ -1,0 +1,10 @@
+{
+  "floating-async-iteration": [
+    {
+      "cardinality": {
+        "method": "map-result-discarded"
+      },
+      "count": 1
+    }
+  ]
+}

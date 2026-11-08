@@ -1,0 +1,11 @@
+{
+  "route-entry-directive": [
+    {
+      "cardinality": {
+        "directive": "use-server",
+        "entry": "layout"
+      },
+      "count": 1
+    }
+  ]
+}

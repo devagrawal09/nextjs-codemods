@@ -1,0 +1,10 @@
+{
+  "nested-component-definition": [
+    {
+      "cardinality": {
+        "declaredAs": "arrow"
+      },
+      "count": 1
+    }
+  ]
+}
