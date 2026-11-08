@@ -1,6 +1,6 @@
 schema_version: "1.0"
 
-name: "db-query-in-loop"
+name: "@devagrawal09/db-query-in-loop"
 version: "0.1.0"
 description: "Database queries awaited one at a time inside loops (N+1)"
 author: "Dev Agrawal"
@@ -12,8 +12,8 @@ targets:
 keywords: ["react", "nextjs", "audit", "detection"]
 
 registry:
-  access: "private"
-  visibility: "private"
+  access: "public"
+  visibility: "public"
 
 capabilities: []
 

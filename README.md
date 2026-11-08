@@ -22,6 +22,16 @@ OUT=results bash scripts/run-repo.sh /path/to/repo
 
 `run-all.sh` and `run-repo.sh` drop findings in test, story, e2e and fixture files.
 
+## Publish
+
+Each codemod is a public registry package named `@devagrawal09/<folder name>` (version 0.1.0). From the repo root:
+
+```bash
+npx codemod login && for d in codemods/*/; do (cd "$d" && npx codemod publish); done
+```
+
+`codemod workflow validate -w codemods/<name>` checks a package without signing in.
+
 ## Develop
 
 ```bash

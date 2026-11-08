@@ -1,6 +1,6 @@
 schema_version: "1.0"
 
-name: "click-on-non-interactive"
+name: "@devagrawal09/click-on-non-interactive"
 version: "0.1.0"
 description: "onClick on div/span-like elements with no role or keyboard handler"
 author: "Dev Agrawal"
@@ -12,8 +12,8 @@ targets:
 keywords: ["react", "nextjs", "audit", "detection"]
 
 registry:
-  access: "private"
-  visibility: "private"
+  access: "public"
+  visibility: "public"
 
 capabilities: []
 

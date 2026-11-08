@@ -1,6 +1,6 @@
 schema_version: "1.0"
 
-name: "route-entry-directive"
+name: "@devagrawal09/route-entry-directive"
 version: "0.1.0"
 description: "Next.js App Router page, layout or template files marked 'use client' or 'use server'"
 author: "Dev Agrawal"
@@ -12,8 +12,8 @@ targets:
 keywords: ["react", "nextjs", "audit", "detection"]
 
 registry:
-  access: "private"
-  visibility: "private"
+  access: "public"
+  visibility: "public"
 
 capabilities: []
 

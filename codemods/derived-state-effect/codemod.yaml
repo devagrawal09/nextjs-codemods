@@ -1,6 +1,6 @@
 schema_version: "1.0"
 
-name: "derived-state-effect"
+name: "@devagrawal09/derived-state-effect"
 version: "0.1.0"
 description: "Effects whose only job is to copy props or derived values into state"
 author: "Dev Agrawal"
@@ -12,8 +12,8 @@ targets:
 keywords: ["react", "nextjs", "audit", "detection"]
 
 registry:
-  access: "private"
-  visibility: "private"
+  access: "public"
+  visibility: "public"
 
 capabilities: []
 

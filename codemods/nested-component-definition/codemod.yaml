@@ -1,6 +1,6 @@
 schema_version: "1.0"
 
-name: "nested-component-definition"
+name: "@devagrawal09/nested-component-definition"
 version: "0.1.0"
 description: "Components defined inside another component and rendered as JSX, which remount on every render"
 author: "Dev Agrawal"
@@ -12,8 +12,8 @@ targets:
 keywords: ["react", "nextjs", "audit", "detection"]
 
 registry:
-  access: "private"
-  visibility: "private"
+  access: "public"
+  visibility: "public"
 
 capabilities: []
 

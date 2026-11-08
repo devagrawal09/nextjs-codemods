@@ -1,6 +1,6 @@
 schema_version: "1.0"
 
-name: "index-as-key"
+name: "@devagrawal09/index-as-key"
 version: "0.1.0"
 description: "List items keyed by their array index"
 author: "Dev Agrawal"
@@ -12,8 +12,8 @@ targets:
 keywords: ["react", "nextjs", "audit", "detection"]
 
 registry:
-  access: "private"
-  visibility: "private"
+  access: "public"
+  visibility: "public"
 
 capabilities: []
 

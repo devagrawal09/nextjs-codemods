@@ -1,6 +1,6 @@
 schema_version: "1.0"
 
-name: "effect-missing-cleanup"
+name: "@devagrawal09/effect-missing-cleanup"
 version: "0.1.0"
 description: "Effects that subscribe to events, timers or observers without returning a cleanup"
 author: "Dev Agrawal"
@@ -12,8 +12,8 @@ targets:
 keywords: ["react", "nextjs", "audit", "detection"]
 
 registry:
-  access: "private"
-  visibility: "private"
+  access: "public"
+  visibility: "public"
 
 capabilities: []
 

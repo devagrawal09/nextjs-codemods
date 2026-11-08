@@ -1,6 +1,6 @@
 schema_version: "1.0"
 
-name: "server-action-without-auth"
+name: "@devagrawal09/server-action-without-auth"
 version: "0.1.0"
 description: "Exported server actions with no visible auth or session check"
 author: "Dev Agrawal"
@@ -12,8 +12,8 @@ targets:
 keywords: ["react", "nextjs", "audit", "detection"]
 
 registry:
-  access: "private"
-  visibility: "private"
+  access: "public"
+  visibility: "public"
 
 capabilities: []
 
