@@ -1,0 +1,13 @@
+{
+  "unstable-context-value": [
+    {
+      "cardinality": {
+        "madeOf": "other",
+        "shape": "object",
+        "via": "inline",
+        "wraps": "children-prop"
+      },
+      "count": 1
+    }
+  ]
+}

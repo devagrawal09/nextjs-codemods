@@ -1,0 +1,12 @@
+{
+  "server-action-without-auth": [
+    {
+      "cardinality": {
+        "client": "publicClient",
+        "effect": "reads-or-writes",
+        "kind": "action-client"
+      },
+      "count": 1
+    }
+  ]
+}

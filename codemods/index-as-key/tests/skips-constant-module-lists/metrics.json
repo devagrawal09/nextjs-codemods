@@ -1,0 +1,14 @@
+{
+  "index-as-key": [
+    {
+      "cardinality": {
+        "form": "bare-index",
+        "harm": "unlikely",
+        "input": "no",
+        "item": "host-elements",
+        "list": "fixed-or-unknown"
+      },
+      "count": 1
+    }
+  ]
+}

@@ -4,6 +4,10 @@ import { useMetricAtom } from "codemod:metrics";
 
 const findings = useMetricAtom("oversized-component");
 
+// Demo apps, examples and OG images rendered by Satori aren't shipped UI.
+const EXAMPLE_PATH = /(^|\/)(examples?|demos?|playgrounds?|sandbox(es)?)\/|[-_.](demo|example|dummy)s?[-_./]/i;
+const OG_IMAGE = /from\s+["'](next\/og|@vercel\/og|satori)["']|new ImageResponse\(/;
+
 const LIMIT = 300;
 const JSX: Rule<TSX> = { any: [{ kind: "jsx_element" }, { kind: "jsx_self_closing_element" }] };
 
@@ -12,6 +16,8 @@ const bucket = (lines: number) => (lines >= 1000 ? "1000+" : lines >= 500 ? "500
 const stateBucket = (count: number) => (count === 0 ? "0" : count <= 5 ? "1-5" : count <= 10 ? "6-10" : "11+");
 
 const codemod: Codemod<TSX> = async (root, options) => {
+  // --param includeExamples=1 keeps example and demo code, which is sometimes copied into apps.
+  if (!options.params?.includeExamples && (EXAMPLE_PATH.test(root.filename().replace(/\\/g, "/")) || OG_IMAGE.test(root.root().text()))) return null;
   const report = (node: SgNode<TSX>, dims: Record<string, string>) => {
     findings.increment(dims);
     if (options.params?.locations) {

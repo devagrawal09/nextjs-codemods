@@ -1,0 +1,55 @@
+import * as fs from "fs";
+
+const sources = new Map<string, string | null>();
+const readSource = (path: string) => {
+  if (!sources.has(path)) {
+    try {
+      sources.set(path, fs.readFileSync(path, "utf8"));
+    } catch {
+      sources.set(path, null);
+    }
+  }
+  return sources.get(path) ?? null;
+};
+
+const normalize = (path: string) =>
+  path.split("/").reduce<string[]>((parts, part) => {
+    if (part === "..") parts.pop();
+    else if (part !== ".") parts.push(part);
+    return parts;
+  }, []).join("/");
+
+// Relative imports, plus aliases such as "@/x" and "~/x" tried against every folder above the importer.
+const resolveImport = (fromFile: string, spec: string): { path: string; source: string } | null => {
+  const dir = fromFile.replace(/\\/g, "/").replace(/\/[^/]*$/, "");
+  const alias = spec.match(/^[@~#]\/(.*)$/)?.[1];
+  const bases = spec.startsWith(".") ? [normalize(`${dir}/${spec}`)] : [];
+  if (alias) {
+    for (let d = dir; d.includes("/"); d = d.replace(/\/[^/]*$/, "")) bases.push(`${d}/${alias}`, `${d}/src/${alias}`);
+  }
+  for (const base of bases) {
+    for (const ext of ["", ".ts", ".tsx", ".js", ".jsx", "/index.ts", "/index.tsx", "/index.js"]) {
+      const source = /\.[jt]sx?$/.test(base + ext) ? readSource(base + ext) : null;
+      if (source !== null) return { path: base + ext, source };
+    }
+  }
+  return null;
+};
+
+// The module and exported name a local name was imported from, if any.
+const importOf = (program: SgNode<TSX>, local: string) => {
+  for (const statement of program.findAll({ rule: { kind: "import_statement" } })) {
+    const match = statement.text().match(new RegExp(`\\b(?:([\\w$]+)\\s+as\\s+)?${local}\\b`));
+    const spec = statement.field("source")?.text().slice(1, -1);
+    if (match && spec) return { spec, name: match[1] ?? local };
+  }
+  return null;
+};
+
+// The text of `const name = ...` or `function name(...)` up to the next top-level declaration.
+const definitionIn = (source: string, name: string) => {
+  const start = source.search(new RegExp(`(\\b(const|let|var)\\s+${name}\\s*[=:]|\\bfunction\\s+${name}\\s*[(<])`));
+  if (start < 0) return null;
+  const end = source.slice(start + 1).search(/\n(export\s+)?(default\s+)?(const|let|var|async\s+function|function|class)\s/);
+  return source.slice(start, end < 0 ? undefined : start + 1 + end);
+};

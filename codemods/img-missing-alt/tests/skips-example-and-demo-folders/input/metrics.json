@@ -1,0 +1,10 @@
+{
+  "img-missing-alt": [
+    {
+      "cardinality": {
+        "element": "img"
+      },
+      "count": 1
+    }
+  ]
+}

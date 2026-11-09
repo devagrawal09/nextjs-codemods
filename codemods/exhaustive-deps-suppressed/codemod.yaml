@@ -1,7 +1,7 @@
 schema_version: "1.0"
 
 name: "@devagrawal09/exhaustive-deps-suppressed"
-version: "0.1.0"
+version: "0.2.0"
 description: "Suppressed react-hooks exhaustive-deps warnings"
 author: "Dev Agrawal"
 license: "MIT"

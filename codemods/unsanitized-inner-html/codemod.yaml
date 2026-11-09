@@ -1,7 +1,7 @@
 schema_version: "1.0"
 
 name: "@devagrawal09/unsanitized-inner-html"
-version: "0.1.0"
+version: "0.2.0"
 description: "dangerouslySetInnerHTML fed by a non-literal value without a sanitizer"
 author: "Dev Agrawal"
 license: "MIT"

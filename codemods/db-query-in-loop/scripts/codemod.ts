@@ -4,11 +4,24 @@ import { useMetricAtom } from "codemod:metrics";
 
 const findings = useMetricAtom("db-query-in-loop");
 
+// Demo apps, examples and OG images rendered by Satori aren't shipped UI.
+const EXAMPLE_PATH = /(^|\/)(examples?|demos?|playgrounds?|sandbox(es)?)\/|[-_.](demo|example|dummy)s?[-_./]/i;
+const OG_IMAGE = /from\s+["'](next\/og|@vercel\/og|satori)["']|new ImageResponse\(/;
+
 // Per-item loops only: while/do loops here are almost always deliberate pagination.
 const LOOP_KINDS = new Set(["for_statement", "for_in_statement"]);
 const LOOP_OR_FUNCTION = new Set([...LOOP_KINDS, "while_statement", "do_statement"]);
 // Seeds, one-off scripts and data migrations run once, off the request path.
 const OFFLINE_PATH = /(^|\/)(seeds?|scripts?|migrations?|commands?|upgrade[\w-]*|backfills?)(\/|\.)|(^|\/)seed[\w-]*\.[jt]sx?$/i;
+// `for (i = 0; i < n; i += CHUNK)` and `for (const batch of chunk(rows, 100))` are batching, not one query per item.
+const CHUNK_SOURCE = /chunk|batch|page/i;
+const isChunkedLoop = (loop: SgNode<TSX>) => {
+  if (loop.kind() === "for_statement") {
+    const step = loop.field("increment")?.text() ?? "";
+    return step !== "" && !/^\w+\s*(\+\+|\+=\s*1)$|^\+\+\w+$/.test(step);
+  }
+  return CHUNK_SOURCE.test(loop.field("right")?.text() ?? "") || CHUNK_SOURCE.test(loop.field("left")?.text() ?? "");
+};
 const FUNCTION_KINDS = new Set(["arrow_function", "function_expression", "function", "function_declaration", "method_definition"]);
 
 const ORMS: [string, RegExp][] = [
@@ -19,6 +32,8 @@ const ORMS: [string, RegExp][] = [
 ];
 
 const codemod: Codemod<TSX> = async (root, options) => {
+  // --param includeExamples=1 keeps example and demo code, which is sometimes copied into apps.
+  if (!options.params?.includeExamples && (EXAMPLE_PATH.test(root.filename().replace(/\\/g, "/")) || OG_IMAGE.test(root.root().text()))) return null;
   const report = (node: SgNode<TSX>, dims: Record<string, string>) => {
     findings.increment(dims);
     if (options.params?.locations) {
@@ -34,7 +49,7 @@ const codemod: Codemod<TSX> = async (root, options) => {
     if (!orm) continue;
     // The nearest enclosing loop must be inside the same function as the await.
     const scope = awaited.ancestors().find((a) => LOOP_OR_FUNCTION.has(a.kind()) || FUNCTION_KINDS.has(a.kind()));
-    if (scope && LOOP_KINDS.has(scope.kind())) report(awaited, { orm });
+    if (scope && LOOP_KINDS.has(scope.kind()) && !isChunkedLoop(scope)) report(awaited, { orm });
   }
   return null;
 };

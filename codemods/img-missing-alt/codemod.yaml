@@ -1,7 +1,7 @@
 schema_version: "1.0"
 
 name: "@devagrawal09/img-missing-alt"
-version: "0.1.0"
+version: "0.2.0"
 description: "img and next/image elements without alt text"
 author: "Dev Agrawal"
 license: "MIT"

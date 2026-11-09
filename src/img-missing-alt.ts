@@ -20,7 +20,18 @@ __REPORT__
     const direct = { stopBy: "neighbor" as const, kind: image.is("jsx_opening_element") ? ("jsx_opening_element" as const) : ("jsx_self_closing_element" as const) };
     const hasAlt = image.has({ rule: { kind: "jsx_attribute", has: { kind: "property_identifier", regex: "^alt$" }, inside: direct } });
     const hasSpread = image.has({ rule: { kind: "jsx_expression", has: { kind: "spread_element" }, inside: direct } });
-    if (!hasAlt && !hasSpread) report(image, { element: image.field("name")?.text() ?? "img" });
+    // Hidden or presentational images are skipped by screen readers anyway.
+    const hidden = image.has({
+      rule: {
+        kind: "jsx_attribute",
+        inside: direct,
+        any: [
+          { regex: "^aria-hidden(=(\\{true\\}|\"true\"))?$" },
+          { regex: "^role=[\"'](presentation|none)[\"']$" },
+        ],
+      },
+    });
+    if (!hasAlt && !hasSpread && !hidden) report(image, { element: image.field("name")?.text() ?? "img" });
   }
   return null;
 };

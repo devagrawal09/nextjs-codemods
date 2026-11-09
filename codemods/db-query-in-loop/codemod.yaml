@@ -1,7 +1,7 @@
 schema_version: "1.0"
 
 name: "@devagrawal09/db-query-in-loop"
-version: "0.1.0"
+version: "0.2.0"
 description: "Database queries awaited one at a time inside loops (N+1)"
 author: "Dev Agrawal"
 license: "MIT"

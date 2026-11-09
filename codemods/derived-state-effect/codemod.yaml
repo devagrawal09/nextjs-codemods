@@ -1,7 +1,7 @@
 schema_version: "1.0"
 
 name: "@devagrawal09/derived-state-effect"
-version: "0.1.0"
+version: "0.2.0"
 description: "Effects whose only job is to copy props or derived values into state"
 author: "Dev Agrawal"
 license: "MIT"

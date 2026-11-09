@@ -4,6 +4,10 @@ import { useMetricAtom } from "codemod:metrics";
 
 const findings = useMetricAtom("exhaustive-deps-suppressed");
 
+// Demo apps, examples and OG images rendered by Satori aren't shipped UI.
+const EXAMPLE_PATH = /(^|\/)(examples?|demos?|playgrounds?|sandbox(es)?)\/|[-_.](demo|example|dummy)s?[-_./]/i;
+const OG_IMAGE = /from\s+["'](next\/og|@vercel\/og|satori)["']|new ImageResponse\(/;
+
 const SUPPRESSIONS: [string, RegExp][] = [
   ["eslint", /eslint-disable(-next-line|-line)?\b.*react-hooks\/exhaustive-deps/],
   ["biome", /biome-ignore\b.*useExhaustiveDependencies/],
@@ -11,6 +15,8 @@ const SUPPRESSIONS: [string, RegExp][] = [
 ];
 
 const codemod: Codemod<TSX> = async (root, options) => {
+  // --param includeExamples=1 keeps example and demo code, which is sometimes copied into apps.
+  if (!options.params?.includeExamples && (EXAMPLE_PATH.test(root.filename().replace(/\\/g, "/")) || OG_IMAGE.test(root.root().text()))) return null;
   const report = (node: SgNode<TSX>, dims: Record<string, string>) => {
     findings.increment(dims);
     if (options.params?.locations) {

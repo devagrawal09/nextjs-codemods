@@ -4,10 +4,16 @@ import { useMetricAtom } from "codemod:metrics";
 
 const findings = useMetricAtom("route-entry-directive");
 
+// Demo apps, examples and OG images rendered by Satori aren't shipped UI.
+const EXAMPLE_PATH = /(^|\/)(examples?|demos?|playgrounds?|sandbox(es)?)\/|[-_.](demo|example|dummy)s?[-_./]/i;
+const OG_IMAGE = /from\s+["'](next\/og|@vercel\/og|satori)["']|new ImageResponse\(/;
+
 // App Router entry files: app/**/page.tsx, layout.tsx, template.tsx (also .jsx/.ts/.js).
 const ROUTE_ENTRY = /(^|\/)app\/(.+\/)?(page|layout|template)\.[jt]sx?$/;
 
 const codemod: Codemod<TSX> = async (root, options) => {
+  // --param includeExamples=1 keeps example and demo code, which is sometimes copied into apps.
+  if (!options.params?.includeExamples && (EXAMPLE_PATH.test(root.filename().replace(/\\/g, "/")) || OG_IMAGE.test(root.root().text()))) return null;
   const report = (node: SgNode<TSX>, dims: Record<string, string>) => {
     findings.increment(dims);
     if (options.params?.locations) {

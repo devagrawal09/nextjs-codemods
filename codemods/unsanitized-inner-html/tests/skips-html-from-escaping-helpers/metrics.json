@@ -1,0 +1,10 @@
+{
+  "unsanitized-inner-html": [
+    {
+      "cardinality": {
+        "source": "variable"
+      },
+      "count": 1
+    }
+  ]
+}

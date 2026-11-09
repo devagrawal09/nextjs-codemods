@@ -1,0 +1,10 @@
+{
+  "derived-state-effect": [
+    {
+      "cardinality": {
+        "kind": "derived-value"
+      },
+      "count": 1
+    }
+  ]
+}

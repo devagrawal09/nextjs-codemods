@@ -1,7 +1,7 @@
 schema_version: "1.0"
 
 name: "@devagrawal09/click-on-non-interactive"
-version: "0.1.0"
+version: "0.2.0"
 description: "onClick on div/span-like elements with no role or keyboard handler"
 author: "Dev Agrawal"
 license: "MIT"

@@ -2,7 +2,11 @@
   "index-as-key": [
     {
       "cardinality": {
-        "form": "index-in-expression"
+        "form": "index-in-expression",
+        "harm": "unlikely",
+        "input": "no",
+        "item": "host-elements",
+        "list": "fixed-or-unknown"
       },
       "count": 1
     }

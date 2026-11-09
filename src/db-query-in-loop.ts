@@ -5,6 +5,15 @@ const LOOP_KINDS = new Set(["for_statement", "for_in_statement"]);
 const LOOP_OR_FUNCTION = new Set([...LOOP_KINDS, "while_statement", "do_statement"]);
 // Seeds, one-off scripts and data migrations run once, off the request path.
 const OFFLINE_PATH = /(^|\/)(seeds?|scripts?|migrations?|commands?|upgrade[\w-]*|backfills?)(\/|\.)|(^|\/)seed[\w-]*\.[jt]sx?$/i;
+// `for (i = 0; i < n; i += CHUNK)` and `for (const batch of chunk(rows, 100))` are batching, not one query per item.
+const CHUNK_SOURCE = /chunk|batch|page/i;
+const isChunkedLoop = (loop: SgNode<TSX>) => {
+  if (loop.kind() === "for_statement") {
+    const step = loop.field("increment")?.text() ?? "";
+    return step !== "" && !/^\w+\s*(\+\+|\+=\s*1)$|^\+\+\w+$/.test(step);
+  }
+  return CHUNK_SOURCE.test(loop.field("right")?.text() ?? "") || CHUNK_SOURCE.test(loop.field("left")?.text() ?? "");
+};
 const FUNCTION_KINDS = new Set(["arrow_function", "function_expression", "function", "function_declaration", "method_definition"]);
 
 const ORMS: [string, RegExp][] = [
@@ -25,7 +34,7 @@ __REPORT__
     if (!orm) continue;
     // The nearest enclosing loop must be inside the same function as the await.
     const scope = awaited.ancestors().find((a) => LOOP_OR_FUNCTION.has(a.kind()) || FUNCTION_KINDS.has(a.kind()));
-    if (scope && LOOP_KINDS.has(scope.kind())) report(awaited, { orm });
+    if (scope && LOOP_KINDS.has(scope.kind()) && !isChunkedLoop(scope)) report(awaited, { orm });
   }
   return null;
 };

@@ -1,0 +1,13 @@
+{
+  "nested-component-definition": [
+    {
+      "cardinality": {
+        "declaredAs": "function",
+        "harm": "likely",
+        "holdsState": "yes",
+        "input": "yes"
+      },
+      "count": 1
+    }
+  ]
+}

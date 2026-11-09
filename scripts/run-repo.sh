@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # Runs every detection codemod against one cloned repo, appending FINDING rows to
 # $OUT/<codemod>.tsv and wall-clock seconds per codemod to $OUT/timings.tsv.
-# Usage: OUT=results-wide scripts/run-repo.sh /path/to/repo
+# Usage: OUT=results-wide [CODEMODS="a b"] scripts/run-repo.sh /path/to/repo
 set -uo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
 repo="$(cd "$1" && pwd -P)"; name=$(basename "$repo")
 OUT="${OUT:-$ROOT/results}"; mkdir -p "$OUT"
 TEST_PATHS='(/__tests__/|/__stories__/|/stories/|/tests?/|/e2e/|/playwright/|/__mocks__/|/fixtures?/|\.(test|spec|stories|e2e)\.[jt]sx?:)'
-for cm in $(ls "$ROOT/codemods"); do
+for cm in ${CODEMODS:-$(ls "$ROOT/codemods")}; do
   start=$(date +%s.%N)
   codemod jssg run --language tsx -t "$repo" "$ROOT/codemods/$cm/scripts/codemod.ts" \
     --no-interactive --allow-dirty --dry-run --disable-analytics --param locations=1 2>/dev/null \

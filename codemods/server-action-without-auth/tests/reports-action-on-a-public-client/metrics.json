@@ -2,6 +2,7 @@
   "server-action-without-auth": [
     {
       "cardinality": {
+        "client": "actionClient",
         "effect": "reads-or-writes",
         "kind": "action-client"
       },
